@@ -1,71 +1,56 @@
-def readpom
-
-node {
- withCredentials([string(credentialsId: 'SonarJavaTestProjectKey', variable: 'password')]) {
-   
- def scannerHome = tool 'sonar'
-    
-    stage('Clone repo') {
-        git credentialsId: 'Git', url: 'git@github.com:NJ24-LAB/JavaTest.git'
+def buildno = BUILD_NUMBER
+pipeline {
+    agent any
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "maven3.6.3"
     }
-
-    stage('Build') {
-        sh ' mvn clean package '
-    } 
     
-        stage('Static Analysis') {
-        withSonarQubeEnv(credentialsId: 'sonarqube') {
-    sh '''mvn package sonar:sonar  \
-      -Dsonar.projectKey=JavaTestProject \
-  -Dsonar.host.url=http://3.108.54.118:9000 \
-  -Dsonar.login= ${password} \
-  -Dproject.settings=sonar-project.properties''' 
-}
-    } 
-    
-      stage("Quality Gate"){
-          timeout(time: 1, unit: 'MINUTES') {
-              def qg = waitForQualityGate()
-              if (qg.status != 'OK') {
-                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
+	
+	environment {
+        registry = "332303016470.dkr.ecr.ap-south-1.amazonaws.com/mydockerrepo:${buildno}"
+    }
+	
+    stages {
+      	
+         stage('Build'){
+             steps{
+	            sh "cd mavenapp"
+		    sh "mvn clean package"
+	              }
+        }  
+	
+	stage('Building image') {
+            steps{
+                script {
+			  sh "docker build -t yoshithadocker/mydockerrepo:${buildno} ." 
+                     }
+                  }
+              }
+	      
+	stage('push to repo') {
+            steps{
+                script {
+			  withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerpassword', usernameVariable: 'dockeruser')]) {
+                                        
+					sh 'docker login -u yoshithadocker -p ${dockerpassword}'
+			                sh "docker push yoshithadocker/mydockerrepo:latest"
+                     }
+                  }
               }
           }
-      }  
-      
-          stage('Upload Artifact') {
-               readpom = readMavenPom file: 'pom.xml';
-               def pomversion = readpom.version;
-               echo '${pomversion}'
-               
-        nexusArtifactUploader artifacts: [
-            [
-                artifactId: 'demo', 
-                classifier: '', 
-                file: "target/demo-${pomversion}.war", 
-                type: 'war'
-            ]
-        ], 
-        credentialsId: 'nexus', 
-        groupId: 'com.domain', 
-        nexusUrl: '3.108.54.118:8081', 
-        nexusVersion: 'nexus3', 
-        protocol: 'http', 
-        repository: 'maven-test-repo', 
-        version: "${pomversion}"
-    } 
-          
-          
-    
-    stage('Docker Build & Deploy') {
-  readpom = readMavenPom file: 'pom.xml';
-               def pomversion = readpom.version;
-               echo "${pomversion}"
-        sh "sh deploy.sh ${pomversion}"
-    } 
-    
-    
-     /*   stage('deploy') {
-        ansiblePlaybook credentialsId: 'ansible', installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy.yaml'
-    }  */
-}
+	 
+         stage('K8S Deploy') {
+             steps{   
+              script {
+                 
+		      kubeconfig(credentialsId: 'kubeconfig', serverUrl: 'https://394B0D2B64F459D83B8A7C980116DC28.gr7.us-east-2.eks.amazonaws.com') {
+                                 sh ('kubectl apply -f  eks-deploy-k8s.yaml')
+                             }
+             }
+            }
+        }
+
+     }
+
 }
