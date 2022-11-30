@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: my-springboot-app
-        image: yoshithadocker/mydockerrepo:63
+        image: yoshithadocker/mydockerrepo:64
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 9090
           name: http
           protocol: TCP
 # service type loadbalancer       
@@ -36,7 +36,7 @@ spec:
   - name: http
     port: 80
     protocol: TCP
-    targetPort: 8080
+    targetPort: 9090
   type: LoadBalancer
   selector:
     app: springboot-app
