@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: my-springboot-app
-        image: yoshithadocker/mydockerrepo:66
+        image: yoshithadocker/mydockerrepo:67
         imagePullPolicy: Always
         ports:
         - containerPort: 9090
