@@ -14,7 +14,7 @@ pipeline {
 	              }
         }  
 	
-	stage('Building image') {
+	/*stage('Building image') {
             steps{
                 script {
 			  sh "docker build -t yoshithadocker/mydockerrepo:${buildno} ." 
@@ -43,7 +43,7 @@ pipeline {
                              }
              }
             }
-        }
+        }*/
 
      }
 
