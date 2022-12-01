@@ -12,8 +12,13 @@ pipeline {
              steps{
 		    sh "mvn clean package"
 	              }
-        }  
-	 stage('sonar') {
+        } 
+	    stage('scan'){
+             steps{
+		    sh 'grype dir:. --scope AllLayers'
+	              }
+        } 
+	 /*stage('sonar') {
             steps {
 		    script {
                        withSonarQubeEnv('SonarQubeSrvr') {
@@ -29,7 +34,7 @@ pipeline {
 	      }
            }
 	
-	/*stage('Building image') {
+	stage('Building image') {
             steps{
                 script {
 			  sh "docker build -t yoshithadocker/mydockerrepo:${buildno} ." 
