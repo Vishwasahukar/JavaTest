@@ -13,11 +13,7 @@ pipeline {
 		    sh "mvn clean package"
 	              }
         } 
-	    stage('scan'){
-             steps{
-		    sh 'grype dir:. --scope AllLayers'
-	              }
-        } 
+	   
 	 /*stage('sonar') {
             steps {
 		    script {
@@ -32,7 +28,7 @@ pipeline {
                     }
                  }
 	      }
-           }
+           }*/
 	
 	stage('Building image') {
             steps{
@@ -42,7 +38,12 @@ pipeline {
                   }
               }
 	      
-	stage('push to repo') {
+	   stage('scan'){
+             steps{
+		    sh 'grype yoshithadocker/mydockerrepo:${buildno} '
+	              }
+        } 
+	/*stage('push to repo') {
             steps{
                 script {
 			  withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerpassword', usernameVariable: 'dockeruser')]) {
