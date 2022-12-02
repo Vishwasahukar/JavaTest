@@ -54,7 +54,7 @@ pipeline {
                   }
               }
           }
-	    stage('scan'){
+	    stage('Deploy'){
              steps{
 		   deploy adapters: [tomcat9(path: '', url: 'http://18.183.228.174:8080/')], contextPath: null, war: './target/*.war'
               }
