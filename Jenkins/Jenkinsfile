@@ -40,8 +40,8 @@ pipeline {
 	      
 	   stage('scan'){
              steps{
-		    sh 'grype yoshithadocker/mydockerrepo:${buildno} '
-	              }
+		    sh "grype yoshithadocker/mydockerrepo:${buildno}"
+              }
         } 
 	/*stage('push to repo') {
             steps{
