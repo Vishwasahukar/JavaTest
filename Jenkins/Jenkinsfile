@@ -14,7 +14,7 @@ pipeline {
 	              }
         } 
 	   
-	 /*stage('sonar') {
+	 stage('sonar') {
             steps {
 		    script {
                        withSonarQubeEnv('SonarQubeSrvr') {
@@ -28,7 +28,7 @@ pipeline {
                     }
                  }
 	      }
-           }*/
+           }
 	
 	stage('Building image') {
             steps{
@@ -43,7 +43,7 @@ pipeline {
 		    sh "grype yoshithadocker/mydockerrepo:${buildno}"
               }
         } 
-	/*stage('push to repo') {
+	stage('push to repo') {
             steps{
                 script {
 			  withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerpassword', usernameVariable: 'dockeruser')]) {
@@ -55,7 +55,7 @@ pipeline {
               }
           }
 	 
-         stage('K8S Deploy') {
+        /* stage('K8S Deploy') {
              steps{   
               script {
                  
