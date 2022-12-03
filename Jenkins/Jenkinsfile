@@ -56,10 +56,12 @@ pipeline {
           }
 	    stage('Deploy'){
              steps{
-		   deploy adapters: [tomcat9(path: '', url: 'http://18.183.228.174:8080/')], contextPath: null, war: './target/*.war'
+		    sshagent(['tomcat']) {
+                   sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.112.194.227:/opt/apache-tomcat-9.0.41/webapps/" 
+                  }
               }
         } 
-	    
+	  
 	 
         /* stage('K8S Deploy') {
              steps{   
