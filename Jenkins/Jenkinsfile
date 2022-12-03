@@ -29,7 +29,7 @@ pipeline {
                  }
 	      }
            }
-	*/
+	
 	stage('Building image') {
             steps{
                 script {
@@ -53,7 +53,7 @@ pipeline {
                      }
                   }
               }
-          }
+          }*/
 	    stage('Deploy'){
              steps{
 		    sshagent(['tomcat']) {
