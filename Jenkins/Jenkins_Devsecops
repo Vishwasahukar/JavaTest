@@ -10,29 +10,11 @@ pipeline {
     
     
     stages {
-    
-    stage('Building image') {
-            steps{
-              sh "docker build -t vishwasahukar/mydockerrepo:latest ."
-                  }
-              }
-              stage('Login') {
-			     steps {
-				   sh 'docker login -u vishwasahukar --password-stdin dckr_pat_dGtXBigb6aKzyr3k9e1AmUI-hyU'
-			}
-		}
-    stage('Push Image') {
-            steps{
-              sh "docker push vishwasahukar/mydockerrepo:latest"
-                  }
-              }
     stage('scan'){
              steps{
-            sh "grype vishwasahukar/mydockerrepo:latest"
+            sh "grype /var/lib/jenkins/workspace/Devsecops-1/target/demo-2.0.0-SNAPSHOT.war"
               }
         }
         
      }
 }
-
-
