@@ -18,13 +18,12 @@ pipeline {
               }
     stage('Push Image') {
             steps{
-              sh "docker tag sast vishwasahukar/sast:latest"
-              sh "docker push vishwasahukar/sast:latest"
+              sh "docker push vishwasahukar/mydockerrepo:latest"
                   }
               }
     stage('scan'){
              steps{
-            sh "grype vishwasahukar/sast:latest"
+            sh "grype vishwasahukar/mydockerrepo:latest"
               }
         }
         
