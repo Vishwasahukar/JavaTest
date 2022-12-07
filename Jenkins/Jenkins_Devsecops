@@ -12,6 +12,14 @@ pipeline {
             sh "mvn clean package"
                   }
         }
+        
+        stage('Building image') {
+            steps{
+                script {
+              sh "docker build -t yoshithadocker/mydockerrepo:${buildno} ."
+                     }
+                  }
+              }
     
     stage('scan'){
              steps{
@@ -21,3 +29,5 @@ pipeline {
         
      }
 }
+
+
