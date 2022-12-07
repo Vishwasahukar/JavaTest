@@ -23,6 +23,13 @@ pipeline {
                      }
                   }
               }
+         stage('Building image') {
+             steps{
+                script {
+              sh "docker push vishwasahukar/mydockerrepo:${buildno} ."
+                     }
+                  }
+              }
     
     stage('scan'){
              steps{
