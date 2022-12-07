@@ -16,14 +16,14 @@ pipeline {
                   }
         }
         
-        stage('Building image') {
+        \\stage('Building image') {
             steps{
                 script {
               sh "docker build -t vishwasahukar/mydockerrepo:latest ."
                      }
                   }
               }
-         stage('image push') {
+         \\stage('image push') {
              steps{
                 script {
               sh "docker tag mydockerrepo:latest vishwasahukar/mydockerrepo:latest"
@@ -34,7 +34,7 @@ pipeline {
     
     stage('scan'){
              steps{
-            sh "grype vishwasahukar/mydockerrepo:${buildno}"
+            sh "grype /var/lib/jenkins/workspace/Devsecops-1/target/demo-2.0.0-SNAPSHOT.war"
               }
         }
         
