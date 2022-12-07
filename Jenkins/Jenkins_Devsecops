@@ -1,3 +1,6 @@
+
+def buildno = BUILD_NUMBER
+
 pipeline {
     agent any
     tools {
@@ -16,14 +19,14 @@ pipeline {
         stage('Building image') {
             steps{
                 script {
-              sh "docker pull yoshithadocker/mydockerrepo:16"
+              sh "docker build -t vishwasahukar/mydockerrepo:${buildno} ."
                      }
                   }
               }
     
     stage('scan'){
              steps{
-            sh "grype yoshithadocker/mydockerrepo:16"
+            sh "grype vishwasahukar/mydockerrepo:${buildno}"
               }
         }
         
