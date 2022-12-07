@@ -16,6 +16,11 @@ pipeline {
               sh "docker build -t vishwasahukar/mydockerrepo:latest ."
                   }
               }
+              stage('Login') {
+			     steps {
+				   sh 'docker login -u vishwasahukar --password-stdin dckr_pat_dGtXBigb6aKzyr3k9e1AmUI-hyU'
+			}
+		}
     stage('Push Image') {
             steps{
               sh "docker push vishwasahukar/mydockerrepo:latest"
