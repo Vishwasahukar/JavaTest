@@ -1,5 +1,5 @@
 
-def buildno = BUILD_NUMBER
+//def buildno = BUILD_NUMBER
 
 pipeline {
     agent any
@@ -19,15 +19,15 @@ pipeline {
         stage('Building image') {
             steps{
                 script {
-              sh "docker build -t vishwasahukar/mydockerrepo:${buildno} ."
+              sh "docker build -t vishwasahukar/mydockerrepo:latest ."
                      }
                   }
               }
          stage('image push') {
              steps{
                 script {
-              sh "docker tag mydockerrepo:${buildno} vishwasahukar/mydockerrepo:${buildno}"
-              sh "docker push vishwasahukar/mydockerrepo:${buildno}"
+              sh "docker tag mydockerrepo:latest vishwasahukar/mydockerrepo:latest"
+              sh "docker push vishwasahukar/mydockerrepo:latest"
                      }
                   }
               } 
