@@ -26,10 +26,10 @@ pipeline {
          stage('image push') {
              steps{
                 script {
-              sh "docker push vishwasahukar/mydockerrepo:${buildno} ."
+              sh "docker image push --all-tags vishwasahukar/mydockerrepo:${buildno} ."
                      }
                   }
-              }
+              } 
     
     stage('scan'){
              steps{
