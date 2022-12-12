@@ -22,7 +22,7 @@ pipeline {
          }     
     stage('vulnerablity_count'){
              steps{
-            sh "./var/lib/jenkins/workspace/shell.sh"
+            sh "/var/lib/jenkins/workspace/shell.sh"
              }
            }
         }
