@@ -19,6 +19,7 @@ pipeline {
              steps{
             sh "grype /var/lib/jenkins/workspace/Devsecops-1/target/demo-2.0.0-SNAPSHOT.war > log.xls"
               }
+         }     
     stage('vulnerablity_count'){
              steps{
             sh "./shell.sh"
@@ -26,4 +27,3 @@ pipeline {
            }
         }
      }
-}
