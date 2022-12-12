@@ -21,7 +21,7 @@ pipeline {
               }
     stage('vulnerablity count'){
              steps{
-             sh ./shell.sh
+            sh "./shell.sh"
              }
            }
         }
