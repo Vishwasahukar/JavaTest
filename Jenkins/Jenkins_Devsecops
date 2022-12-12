@@ -24,6 +24,14 @@ pipeline {
              steps{
             sh "/var/lib/jenkins/workspace/shell.sh"
              }
+             
+             stage('Deploy'){
+             steps{
+             
+             echo " Deploy started"
+            
+             }
            }
         }
      }
+}
