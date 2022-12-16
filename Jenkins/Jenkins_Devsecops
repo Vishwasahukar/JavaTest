@@ -15,6 +15,16 @@ pipeline {
             sh "mvn clean package"
                   }
         }
+        
+        
+        stage('Building image') {
+            steps{
+                script {
+              sh "/var/lib/jenkins/workspace/docker.sh"
+                     }
+                  }
+              }
+              
     stage('scan'){
              steps{
             sh "grype /var/lib/jenkins/workspace/Devsecops-1/target/demo-2.0.0-SNAPSHOT.war > log.xls"
