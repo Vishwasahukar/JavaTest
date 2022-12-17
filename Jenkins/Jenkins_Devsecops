@@ -27,7 +27,7 @@ pipeline {
               
     stage('scan'){
              steps{
-            sh "grype /var/lib/jenkins/workspace/Devsecops-1/target/demo-2.0.0-SNAPSHOT.war > log.xls"
+            sh "grype $docker images 8c504b6e6f9f  > log.xls"
               }
          }     
     stage('vulnerablity_count'){
