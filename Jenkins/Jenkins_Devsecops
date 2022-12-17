@@ -27,7 +27,7 @@ pipeline {
               
     stage('scan'){
              steps{
-            sh "grype $docker images 8c504b6e6f9f  > log.xls"
+            sh "grype $docker image 8c504b6e6f9f  > log.xls"
               }
          }     
     stage('vulnerablity_count'){
