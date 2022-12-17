@@ -1,6 +1,6 @@
 
 //def buildno = BUILD_NUMBER
-image = docker image 8c504b6e6f9f
+//image = docker image 8c504b6e6f9f
 
 pipeline {
     agent any
@@ -22,13 +22,14 @@ pipeline {
             steps{
                 script {
               sh "/var/lib/jenkins/workspace/docker.sh"
+              
                      }
                   }
               }
               
     stage('scan'){
              steps{
-            sh "grype $image  > log.xls"
+            sh "grype 8c504b6e6f9f  > log.xls"
               }
          }     
     stage('vulnerablity_count'){
