@@ -1,5 +1,6 @@
 
 //def buildno = BUILD_NUMBER
+image = docker image 8c504b6e6f9f
 
 pipeline {
     agent any
@@ -27,7 +28,7 @@ pipeline {
               
     stage('scan'){
              steps{
-            sh "grype docker image 8c504b6e6f9f  > log.xls"
+            sh "grype $image  > log.xls"
               }
          }     
     stage('vulnerablity_count'){
