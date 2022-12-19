@@ -29,7 +29,7 @@ pipeline {
               
     stage('scan'){
              steps{
-            sh "grype 8c504b6e6f9f  > log.xls"
+            sh "grype test_01:latest  > log.xls"
               }
          }     
     stage('vulnerablity_count'){
