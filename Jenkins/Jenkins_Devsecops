@@ -29,7 +29,10 @@ pipeline {
               
     stage('scan'){
              steps{
-            sh "anchore test_01:latest  > log.xls"
+             
+             writeFile file: 'anchore_images', text: "${test_01:latest}"
+       sh "anchore 'anchore_images' > log.xsl"
+          
               }
          }     
     stage('vulnerablity_count'){
