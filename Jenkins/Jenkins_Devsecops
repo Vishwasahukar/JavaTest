@@ -30,8 +30,10 @@ pipeline {
     stage('scan'){
              steps{
              
-             writeFile file: 'anchore_images', text: "${test_01:latest}"
-       sh "anchore 'anchore_images' > log.xsl"
+             def imageLine = '<docker.io/vishwasahukar/test_01>'
+        writeFile file: 'anchore_images', text: "${imageLine}"
+        anchore 'anchore_images'
+
           
               }
          }     
