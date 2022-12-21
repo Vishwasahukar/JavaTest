@@ -31,7 +31,7 @@ pipeline {
     stage('scan'){
              steps{
              
-             def imageLine = '<docker.io/vishwasahukar/test_01>'
+             def imageLine = 'docker.io/vishwasahukar/test_01'
         writeFile file: 'anchore_images', text: "${imageLine}"
         anchore 'anchore_images'
 
