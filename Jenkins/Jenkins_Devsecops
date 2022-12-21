@@ -28,7 +28,7 @@ pipeline {
                   
               }
               
-    stage('scan'){
+    stage('Image scan'){
          steps{
            script {    
              def imageLine = 'https://docker.io/vishwasahukar/test_01'
